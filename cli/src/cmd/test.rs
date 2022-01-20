@@ -102,7 +102,9 @@ impl Cmd for TestArgs {
     type Output = TestOutcome;
 
     fn run(self) -> eyre::Result<Self::Output> {
+        dbg!("RUN");
         let TestArgs { opts, evm_opts, json, filter, allow_failure } = self;
+        dbg!(&evm_opts);
         // Setup the fuzzer
         // TODO: Add CLI Options to modify the persistence
         let cfg = proptest::test_runner::Config { failure_persistence: None, ..Default::default() };
@@ -235,6 +237,7 @@ fn test<A: ArtifactOutput + 'static>(
     json: bool,
     allow_failure: bool,
 ) -> eyre::Result<TestOutcome> {
+    dbg!("TEST");
     let verbosity = evm_opts.verbosity;
     let mut runner = builder.build(project, evm_opts)?;
 

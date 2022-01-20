@@ -156,7 +156,9 @@ mod sputnik_helpers {
 
         #[cfg(feature = "sputnik")]
         pub fn vicinity(&self) -> eyre::Result<MemoryVicinity> {
+            dbg!(&self);
             Ok(if let Some(ref url) = self.fork_url {
+                dbg!("IF BLOCK");
                 let provider = ethers::providers::Provider::try_from(url.as_str())?;
                 let rt = tokio::runtime::Runtime::new().expect("could not start tokio rt");
                 rt.block_on(crate::sputnik::vicinity(
@@ -165,6 +167,7 @@ mod sputnik_helpers {
                     Some(self.env.tx_origin),
                 ))?
             } else {
+                dbg!("ELSE BLOCK");
                 self.env.sputnik_state()
             })
         }

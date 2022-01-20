@@ -153,8 +153,10 @@ impl MultiContractRunner {
     ) -> Result<BTreeMap<String, BTreeMap<String, TestResult>>> {
         // TODO: Convert to iterator, ideally parallel one?
         let contracts = std::mem::take(&mut self.contracts);
-
+        dbg!("MULTI-CONTRACT-RUNNER");
         let vicinity = self.evm_opts.vicinity()?;
+        dbg!("VICINITY");
+        dbg!(&vicinity);
         let backend = self.evm_opts.backend(&vicinity)?;
 
         let results = contracts
